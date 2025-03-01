@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //（1）建立webscoket连接
+        var ws = new WebSocket("ws://localhost:3000")
+        //计数
+        var count = 1
+        //（2）建立连接触发open事件
+        ws.onopen = function(){
+            ws.onmessage = function(e){
+                var oP = document.createElement('p')
+                oP.innerHTML = `第${count}次收到消息${e.data}`
+                document.appendChild(oP)
+                count++
+            }
+        }
+    
+        //关闭窗口或窗口刷新时关闭当前的websocket连接
+        window.onbeforeunload = function(){
+            ws.close()
+        }
+    </script>
+</body>
+</html>
