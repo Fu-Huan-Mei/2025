@@ -1,0 +1,43 @@
+{
+  "branches": [
+    "next",
+    "master",
+    { "name": "beta", "prerelease": true },
+    { "name": "alpha", "prerelease": true }
+  ],
+  "tagFormat": "@${version}",
+  "plugins": [
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "angular",
+        "releaseRules": [
+          { "type": "breaking", "release": "major" },
+          { "type": "docs", "scope": "README", "release": "patch" },
+          { "type": "refactor", "release": "patch" },
+          { "type": "style", "release": "patch" },
+          { "type": "chore", "release": false },
+          { "type": "example", "release": false }
+        ]
+      }
+    ],
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogFile": "CHANGELOG.md"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          { "path": "lib/element-tiptap.umd.js", "label": "UMD module" },
+          { "path": "lib/element-tiptap.es.js", "label": "ECMAScript 6 module" }
+        ]
+      }
+    ],
+    "@semantic-release/npm",
+    "@semantic-release/git"
+  ]
+}
